@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.SystemClock;
 import android.os.UserHandle;
+import android.os.SystemProperties;
 import android.os.UserManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -39,7 +40,6 @@ public class FirmwareVersionDetailPreferenceController extends BasePreferenceCon
 
     @VisibleForTesting
     private static final String XD_PLATFORM_RELEASE_OR_CODENAME = "ro.yalp.settings.android_version";
-
     private static final String TAG = "firmwareDialogCtrl";
     private static final int DELAY_TIMER_MILLIS = 500;
     private static final int ACTIVITY_TRIGGER_COUNT = 3;
@@ -77,7 +77,7 @@ public class FirmwareVersionDetailPreferenceController extends BasePreferenceCon
     }
 
     @Override
-    public CharSequence getSummary() { 
+    public CharSequence getSummary() {
         return SystemProperties.get(XD_PLATFORM_RELEASE_OR_CODENAME, 
            Build.VERSION.RELEASE_OR_CODENAME);
     }
