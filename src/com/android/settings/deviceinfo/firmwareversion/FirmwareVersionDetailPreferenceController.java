@@ -40,6 +40,7 @@ public class FirmwareVersionDetailPreferenceController extends BasePreferenceCon
 
     @VisibleForTesting
     private static final String VOLTAGE_PLATFORM_RELEASE_OR_CODENAME = "ro.voltage.platform_release_or_codename";
+    private static final String XD_PLATFORM_RELEASE_OR_CODENAME = "ro.yalp.settings.android_version";
 
     private static final String TAG = "firmwareDialogCtrl";
     private static final int DELAY_TIMER_MILLIS = 500;
@@ -80,6 +81,7 @@ public class FirmwareVersionDetailPreferenceController extends BasePreferenceCon
     @Override
     public CharSequence getSummary() {
         return SystemProperties.get(VOLTAGE_PLATFORM_RELEASE_OR_CODENAME, 
+        return SystemProperties.get(XD_PLATFORM_RELEASE_OR_CODENAME, 
             Build.VERSION.RELEASE_OR_CODENAME);
     }
 
