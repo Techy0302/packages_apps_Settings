@@ -175,4 +175,7 @@
       
     <!-- YALP version -->
     <string name="yalp_version">YALP version</string>
+   
+    <!-- YALP Maintainer -->
+    <string name="yalp_maintainer">Device Maintainer</string>
 </resources>
