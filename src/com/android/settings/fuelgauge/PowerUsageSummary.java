@@ -18,7 +18,6 @@ package com.android.settings.fuelgauge;
 
 import static com.android.settings.fuelgauge.BatteryBroadcastReceiver.BatteryUpdateType;
 
-import android.annotation.Nullable;
 import android.app.settings.SettingsEnums;
 import android.content.Context;
 import android.database.ContentObserver;
@@ -46,11 +45,6 @@ import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settingslib.search.SearchIndexable;
 import com.android.settingslib.widget.LayoutPreference;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.Integer;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -90,10 +84,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
     LayoutPreference mBatteryLayoutPref;
     @VisibleForTesting
     BatteryInfo mBatteryInfo;
-    @VisibleForTesting
-    PowerGaugePreference mCurrentBatteryCapacity;
-    @VisibleForTesting
-    PowerGaugePreference mDesignedBatteryCapacity;
 
     @VisibleForTesting
     BatteryHeaderPreferenceController mBatteryHeaderPreferenceController;
@@ -331,36 +321,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
     @Override
     public void onBatteryTipHandled(BatteryTip batteryTip) {
         restartBatteryTipLoader();
-    }
-
-    private String parseBatterymAhText(String file) {
-        try {
-            return Integer.parseInt(readLine(file)) / 1000 + " mAh";
-        } catch (IOException ioe) {
-            Log.e(TAG, "Cannot read battery capacity from "
-                    + file, ioe);
-        } catch (NumberFormatException nfe) {
-            Log.e(TAG, "Read a badly formatted battery capacity from "
-                    + file, nfe);
-        }
-        return getResources().getString(R.string.status_unavailable);
-    }
-
-    /**
-    * Reads a line from the specified file.
-    *
-    * @param filename The file to read from.
-    * @return The first line up to 256 characters, or <code>null</code> if file is empty.
-    * @throws IOException If the file couldn't be read.
-    */
-    @Nullable
-    private String readLine(String filename) throws IOException {
-        final BufferedReader reader = new BufferedReader(new FileReader(filename), 256);
-        try {
-            return reader.readLine();
-        } finally {
-            reader.close();
-        }
     }
 
     public static final BaseSearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
