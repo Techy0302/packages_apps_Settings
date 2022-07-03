@@ -26,9 +26,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings.Global;
 
-import androidx.preference.Preference;
-import android.util.Log;
-
 import androidx.annotation.VisibleForTesting;
 import androidx.loader.app.LoaderManager;
 import androidx.loader.content.Loader;
@@ -61,15 +58,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
     static final String KEY_BATTERY_ERROR = "battery_help_message";
     @VisibleForTesting
     static final String KEY_BATTERY_USAGE = "battery_usage_summary";
-
-    private static final String KEY_BATTERY_TEMP = "battery_temperature";
-    private static final String KEY_CURRENT_BATTERY_CAPACITY = "current_battery_capacity";
-    private static final String KEY_DESIGNED_BATTERY_CAPACITY = "designed_battery_capacity";
-
-    private static final String FILENAME_BATTERY_DESIGN_CAPACITY =
-            "/sys/class/power_supply/bms/charge_full_design";
-    private static final String FILENAME_BATTERY_CURRENT_CAPACITY =
-            "/sys/class/power_supply/bms/charge_full";
 
     @VisibleForTesting
     static final int BATTERY_INFO_LOADER = 1;
@@ -173,11 +161,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
         initFeatureProvider();
         initPreference();
 
-        mBatteryTempPref = (PowerGaugePreference) findPreference(KEY_BATTERY_TEMP);
-        mCurrentBatteryCapacity = (PowerGaugePreference) findPreference(
-                KEY_CURRENT_BATTERY_CAPACITY);
-        mDesignedBatteryCapacity = (PowerGaugePreference) findPreference(
-                KEY_DESIGNED_BATTERY_CAPACITY);
         mBatteryUtils = BatteryUtils.getInstance(getContext());
 
         if (Utils.isBatteryPresent(getContext())) {
@@ -249,11 +232,6 @@ public class PowerUsageSummary extends PowerUsageBase implements
         }
         // reload BatteryInfo and updateUI
         restartBatteryInfoLoader();
-
-        mBatteryTempPref.setSummary(BatteryInfo.batteryTemp / 10 + " °C");
-        mCurrentBatteryCapacity.setSubtitle(parseBatterymAhText(FILENAME_BATTERY_CURRENT_CAPACITY));
-        mDesignedBatteryCapacity.setSubtitle(parseBatterymAhText(FILENAME_BATTERY_DESIGN_CAPACITY));
-
     }
 
     @VisibleForTesting
