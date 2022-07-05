@@ -27,7 +27,7 @@ import com.android.settings.core.BasePreferenceController;
 public class FirmwareVersionPreferenceController extends BasePreferenceController {
 
     @VisibleForTesting
-    private static final String XD_PLATFORM_RELEASE_OR_CODENAME = "ro.yalp.settings.android_version;
+    private static final String XD_PLATFORM_RELEASE_OR_CODENAME = "ro.yalp.settings.android_version";
 
     public FirmwareVersionPreferenceController(Context context, String key) {
         super(context, key);
